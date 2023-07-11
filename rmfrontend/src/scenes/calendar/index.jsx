@@ -166,11 +166,11 @@ const Calendar = () => {
         {/* Calendar side bar  */}
         <Box flex="1 1 100%" ml="15px">
           <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+            plugins={[dayGridPlugin,timeGridPlugin,interactionPlugin,listPlugin]}
             headerToolbar={{
               left: "prev,next today",
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
             initialView="dayGridMonth"
             editable={true}
