@@ -8,7 +8,6 @@ const Header = ( { title , subtitle } ) => {
     return (
         <Box
             mb ="30px"
-            ml = "16px"
         >
             <Typography 
             variant="h2"
