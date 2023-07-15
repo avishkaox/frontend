@@ -119,7 +119,7 @@ const Sidebar = () => {
                                 />
                                 <Box textAlign="center" >
                                     <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{ m: "10px 0 0 0" }} > Avishka </Typography>
-                                    <Typography variant="h5" color={colors.greenAccent[500]}  > Admin </Typography>
+                                    <Typography variant="h5" color={colors.greenAccent[500]}  > Manager </Typography>
                                 </Box>
                             </Box>
                         </Box>
