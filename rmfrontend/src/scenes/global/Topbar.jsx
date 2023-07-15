@@ -8,6 +8,7 @@ import  NotificationsOutlinedIcon  from "@mui/icons-material/NotificationsOutlin
 import  SettingsOutlinedIcon  from "@mui/icons-material/SettingsOutlined";
 import  PersonOutlinedIcon  from "@mui/icons-material/PersonOutlined";
 import  SearchIcon  from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 
 
@@ -47,7 +48,7 @@ const Topbar = () => {
                     <SettingsOutlinedIcon/>
                 </IconButton>
                 <IconButton>
-                    <PersonOutlinedIcon/>
+                    <Link className="login-link" to="/login"> <PersonOutlinedIcon/></Link>
                 </IconButton>
             </Box>
 
