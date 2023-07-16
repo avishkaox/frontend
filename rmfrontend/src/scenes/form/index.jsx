@@ -1,11 +1,11 @@
-import { Box, Button, TextField, MenuItem, Snackbar } from "@mui/material";
+import { Box, Button, TextField, MenuItem } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Alert } from "@mui/material";
-import { useState } from "react";
 import Header from "../../components/Header";
 import { API } from "../../config.js";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialValues = {
     name: "",
@@ -29,11 +29,8 @@ const userSchema = Yup.object().shape({
 
 const Form = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const [isSuccessOpen, setIsSuccessOpen] = useState(false);
-    const [isErrorOpen, setIsErrorOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
 
-    const handleFormSubmit = (values, { resetForm }) => {
+    const handleFormSubmit = async (values, { resetForm }) => {
         const formData = new FormData();
         formData.append("name", values.name);
         formData.append("email", values.email);
@@ -43,41 +40,51 @@ const Form = () => {
         formData.append("registerid", values.registerid);
         formData.append("image", values.image);
 
-        fetch(`${API}/api/users/register`, {
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    return response.json().then((error) => {
-                        setErrorMessage(error.message);
-                        setIsErrorOpen(true);
-                    });
-                }
-            })
-            .then((data) => {
-                console.log(data);
-                resetForm();
-                setIsSuccessOpen(true);
-            })
-            .catch((error) => {
-                console.error(error);
+        try {
+            const response = await fetch(`${API}/api/users/register`, {
+                method: "POST",
+                body: formData,
             });
-    };
 
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                toast.success("User created successfully!", {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                resetForm(); // Clear the form fields
+            } else {
+                const errorData = await response.json();
+                const errorMessage = errorData.message || "User creation failed";
+                toast.error(errorMessage, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred. Please try again.", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 5000,
+                hideProgressBar: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    };
     const handleImageChange = (event, setFieldValue, fieldName) => {
         const file = event.target.files[0];
         setFieldValue(fieldName, file);
-    };
-
-    const handleCloseSuccess = () => {
-        setIsSuccessOpen(false);
-    };
-
-    const handleCloseError = () => {
-        setIsErrorOpen(false);
     };
 
     return (
@@ -212,26 +219,7 @@ const Form = () => {
                     </form>
                 )}
             </Formik>
-            <Snackbar
-                open={isSuccessOpen}
-                autoHideDuration={3000}
-                onClose={handleCloseSuccess}
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            >
-                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: "100%" }}>
-                    User created successfully!
-                </Alert>
-            </Snackbar>
-            <Snackbar
-                open={isErrorOpen}
-                autoHideDuration={3000}
-                onClose={handleCloseError}
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            >
-                <Alert onClose={handleCloseError} severity="error" sx={{ width: "100%" }}>
-                    {errorMessage}
-                </Alert>
-            </Snackbar>
+
         </Box>
     );
 };

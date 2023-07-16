@@ -1,6 +1,7 @@
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Topbar from "./scenes/global/Topbar";
 import Dashboard from "./scenes/dashboard";
 import Sidebar from "./scenes/global/Sidebar";
@@ -13,27 +14,23 @@ import Form from "./scenes/form";
 import Pie from "./scenes/pie";
 import Line from "./scenes/line";
 import Login from "./scenes/user/login";
-
+import { selectIsLoggedIn } from "./auth/authSlice";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  console.log('here',isLoggedIn);
 
   return (
-    <ColorModeContext.Provider value={colorMode} >
+    <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
           <Routes>
-            <Route
-              path="/login"
-              element={
-                <Login />
-              }
-            />
-            <Route
-              path="/"
-              element={
-
+            
+            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -41,12 +38,26 @@ function App() {
                     <Dashboard />
                   </main>
                 </div>
-              }
+              ) : (
+                <Login />
+              )} />
+            <Route
+              path="/"
+              element={isLoggedIn ? (
+                <div className="fullview">
+                  <Sidebar />
+                  <main className="content">
+                    <Topbar />
+                    <Dashboard />
+                  </main>
+                </div>
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
             <Route
               path="/team"
-              element={
-
+              element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -54,12 +65,13 @@ function App() {
                     <Team />
                   </main>
                 </div>
-              }
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
             <Route
               path="/contacts"
-              element={
-
+              element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -67,12 +79,13 @@ function App() {
                     <Contacts />
                   </main>
                 </div>
-              }
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
             <Route
               path="/invoices"
-              element={
-
+              element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -80,12 +93,13 @@ function App() {
                     <Invoices />
                   </main>
                 </div>
-              }
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
             <Route
               path="/form"
-              element={
-
+              element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -93,12 +107,13 @@ function App() {
                     <Form />
                   </main>
                 </div>
-              }
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
             <Route
               path="/calendar"
-              element={
-
+              element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -106,12 +121,13 @@ function App() {
                     <Calendar />
                   </main>
                 </div>
-              }
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
             <Route
               path="/bar"
-              element={
-
+              element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -119,12 +135,13 @@ function App() {
                     <Bar />
                   </main>
                 </div>
-              }
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
             <Route
               path="/pie"
-              element={
-
+              element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -132,12 +149,13 @@ function App() {
                     <Pie />
                   </main>
                 </div>
-              }
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
             <Route
               path="/line"
-              element={
-
+              element={isLoggedIn ? (
                 <div className="fullview">
                   <Sidebar />
                   <main className="content">
@@ -145,12 +163,14 @@ function App() {
                     <Line />
                   </main>
                 </div>
-              }
+              ) : (
+                <Navigate to="/login" replace />
+              )}
             />
           </Routes>
         </div>
       </ThemeProvider>
-    </ColorModeContext.Provider >
+    </ColorModeContext.Provider>
   );
 }
 

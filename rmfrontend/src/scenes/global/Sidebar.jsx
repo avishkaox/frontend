@@ -14,7 +14,8 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
-// import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../auth/authSlice.js";
 
 
 
@@ -44,6 +45,8 @@ const Sidebar = () => {
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
+    const user = useSelector(selectUser);
+
 
     return (
         <Box
@@ -110,16 +113,17 @@ const Sidebar = () => {
                     {/* User  */}
                     {!isCollapsed && (
                         <Box mb="25px" >
+
                             <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" >
-                                <img alt="profile-pic" src="https://res.cloudinary.com/ddkabnrx2/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1689010131/user_p2zciq.jpg?_s=public-apps"
+                                <img alt="profile-pic" src={user.image.filePath}
                                     width="100px"
                                     height="100px"
                                     style={{ cursor: "pointer", borderRadius: "50%" }}
 
                                 />
                                 <Box textAlign="center" >
-                                    <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{ m: "10px 0 0 0" }} > Avishka </Typography>
-                                    <Typography variant="h5" color={colors.greenAccent[500]}  > Manager </Typography>
+                                    <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{ m: "10px 0 0 0" }} > {user.name}</Typography>
+                                    <Typography variant="h5" color={colors.greenAccent[500]}  > {user.role} </Typography>
                                 </Box>
                             </Box>
                         </Box>
