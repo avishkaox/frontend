@@ -47,7 +47,6 @@ const Sidebar = () => {
     const [selected, setSelected] = useState("Dashboard");
     const user = useSelector(selectUser);
 
-
     return (
         <Box
             sx={

@@ -33,3 +33,21 @@ export const getUser = async () => {
         throw error; // Rethrow the error to handle it in the component
     }
 };
+
+export const getAllUser = async () => {
+    try {
+        const response = await axios.get(`${API}/api/users/getallUser`);
+        const allUsers = response.data.map((user, index) => ({
+            id: index + 1, // Assign a unique id to each user object
+            ...user, // Spread the user object properties
+        }));
+        return allUsers;
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        toast.error(message);
+        throw error;
+    }
+};

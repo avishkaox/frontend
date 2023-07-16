@@ -21,7 +21,7 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        SET_LOGIN : (state, action)  => {
+        SET_LOGIN: (state, action) => {
             state.isLoggedIn = action.payload;
         },
         SET_NAME(state, action) {
@@ -37,15 +37,21 @@ const authSlice = createSlice({
             state.user.registerid = profile.registerid;
             state.user.image = profile.image;
         },
+        SET_ALL_USERS(state, action) {
+            state.allUsers = action.payload;
+        },
     },
 });
 
 
 
-export const { SET_LOGIN, SET_NAME, SET_USER } = authSlice.actions;
+
+
+export const { SET_LOGIN, SET_NAME, SET_USER , SET_ALL_USERS } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;
 export const selectUser = (state) => state.auth.user;
+export const selectAllUsers = (state) => state.auth.allUsers;
 
 export default authSlice.reducer;

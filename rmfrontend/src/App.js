@@ -20,8 +20,6 @@ function App() {
   const [theme, colorMode] = useMode();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  console.log('here',isLoggedIn);
-
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>

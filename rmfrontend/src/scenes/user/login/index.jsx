@@ -5,7 +5,7 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { API } from "../../../config.js";
 import { useDispatch } from "react-redux";
-import { SET_LOGIN, SET_NAME , SET_USER } from "../../../auth/authSlice.js";
+import { SET_LOGIN, SET_NAME , SET_USER , SET_ALL_USERS } from "../../../auth/authSlice.js";
 import { getLoginStatus } from "../../../auth/authService.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -43,6 +43,7 @@ const Login = () => {
                 dispatch(SET_LOGIN(true));
                 dispatch(SET_NAME(data.name));
                 dispatch(SET_USER(data));
+                dispatch(SET_ALL_USERS(data));
                 getLoginStatus();
                 console.log(data);
                 navigate("/");
