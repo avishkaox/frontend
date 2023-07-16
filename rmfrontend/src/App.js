@@ -15,9 +15,6 @@ import Line from "./scenes/line";
 import Login from "./scenes/user/login";
 
 
-
-
-
 function App() {
   const [theme, colorMode] = useMode();
 

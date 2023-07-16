@@ -8,6 +8,9 @@ body,
   height: 100%;
   width: 100%;
 }
+.content{
+  overflow: auto;
+}
 .app {
   display: flex;
   position: relative;

@@ -2,13 +2,14 @@ import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
-import  LightModeOutlinedIcon  from "@mui/icons-material/LightModeOutlined";
-import  DarkModeOutlinedIcon  from "@mui/icons-material/DarkModeOutlined";
-import  NotificationsOutlinedIcon  from "@mui/icons-material/NotificationsOutlined";
-import  SettingsOutlinedIcon  from "@mui/icons-material/SettingsOutlined";
-import  PersonOutlinedIcon  from "@mui/icons-material/PersonOutlined";
-import  SearchIcon  from "@mui/icons-material/Search";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
+
 
 
 
@@ -19,8 +20,6 @@ const Topbar = () => {
     const colorMode = useContext(ColorModeContext)
     return (
         <Box display="flex" justifyContent="space-between" p={2} >
-
-
             {/* search bar */}
             <Box display="flex" backgroundColor={colors.primary[400]} borderRadius="3px" >
                 <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
@@ -34,21 +33,21 @@ const Topbar = () => {
             <Box display='flex' >
                 <IconButton onClick={colorMode.toggleColorMode}>
                     {theme.palette.mode === 'dark' ? (
-                        <DarkModeOutlinedIcon/>
+                        <DarkModeOutlinedIcon />
                     ) : (
-                        <LightModeOutlinedIcon/>
+                        <LightModeOutlinedIcon />
                     )
-                 }
+                    }
 
                 </IconButton>
                 <IconButton>
-                    <NotificationsOutlinedIcon/>
+                    <NotificationsOutlinedIcon />
                 </IconButton>
                 <IconButton>
-                    <SettingsOutlinedIcon/>
+                    <SettingsOutlinedIcon />
                 </IconButton>
                 <IconButton>
-                    <Link className="login-link" to="/login"> <PersonOutlinedIcon/></Link>
+                    <Link className="login-link" to="/login"> <PersonOutlinedIcon /></Link>
                 </IconButton>
             </Box>
 

@@ -3,31 +3,55 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { API } from "../../../config.js";
 
 
 const initialValues = {
-    Email: "",
-    Password: "",
+    email: "",
+    password: "",
 }
 
 
 // yup validation 
 
 const userSchema = Yup.object().shape({
-    Email: Yup.string().email("Invalid email").required("Email is required"),
-    Password: Yup.string().required("Password is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().required("Password is required"),
 });
 
 const Login = () => {
 
     const handleFormSubmit = (values) => {
-        console.log(values);
+        fetch(`${API}/api/users/login`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    throw new Error("Login failed");
+                }
+            })
+            .then((data) => {
+                console.log(data);
+                // Handle successful login
+            })
+            .catch((error) => {
+                console.error(error);
+                // Handle login error
+            });
+        window.location.href = "/";
     }
 
     return (
         <Box className="login-view">
             <Box className="sideview">
-
             </Box>
             <Box className="formview">
                 <Typography
@@ -41,8 +65,10 @@ const Login = () => {
                         flexDirection: "column",
                         alignItems: "center",
                     }}  >
-                        <PointOfSaleIcon sx={{   color: "black",
-                        fontSize: "70px", }} />
+                        <PointOfSaleIcon sx={{
+                            color: "black",
+                            fontSize: "70px",
+                        }} />
                         POS Login
                     </Box>
                 </Typography>
@@ -69,10 +95,10 @@ const Login = () => {
                                     label="Email"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    value={values.Email}
-                                    name="Email"
-                                    error={touched.Email && Boolean(errors.Email)}
-                                    helperText={touched.Email && errors.Email}
+                                    value={values.email}
+                                    name="email"
+                                    error={touched.email && Boolean(errors.email)}
+                                    helperText={touched.email && errors.email}
                                     sx={{
                                         gridColumn: "span 2", color: "black !important", "& .MuiFilledInput-input": {
                                             color: `black !important`,
@@ -85,14 +111,14 @@ const Login = () => {
                                 <TextField
                                     fullWidth
                                     variant="filled"
-                                    type="text"
+                                    type="password"
                                     label="Password"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    value={values.Password}
-                                    name="Password"
-                                    error={touched.Password && Boolean(errors.Password)}
-                                    helperText={touched.Password && errors.Password}
+                                    value={values.password}
+                                    name="password"
+                                    error={touched.password && Boolean(errors.password)}
+                                    helperText={touched.password && errors.password}
                                     sx={{
                                         gridColumn: "span 2", color: "black !important", "& .MuiFilledInput-input": {
                                             color: `black !important`,
