@@ -103,6 +103,11 @@ const Team = () => {
         formData.append("phone", values.phone);
         formData.append("role", values.role);
 
+        if ( !values.name ||!values.email ||!values.phone ) {
+            toast.error("Please fill all the fields");
+            return;
+        }
+
         try {
             const response = await fetch(`${API}/api/users/updateuser/${selectedUser.id}`, {
                 method: "PATCH",

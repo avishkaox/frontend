@@ -14,6 +14,8 @@ import Form from "./scenes/form";
 import Pie from "./scenes/pie";
 import Line from "./scenes/line";
 import Login from "./scenes/user/login";
+import Products from "./scenes/produts/Products";
+import Createproduct from "./scenes/produts/Createproducts";
 import { selectIsLoggedIn } from "./auth/authSlice";
 
 function App() {
@@ -159,6 +161,34 @@ function App() {
                   <main className="content">
                     <Topbar />
                     <Line />
+                  </main>
+                </div>
+              ) : (
+                <Navigate to="/login" replace />
+              )}
+            />
+             <Route
+              path="/products"
+              element={isLoggedIn ? (
+                <div className="fullview">
+                  <Sidebar />
+                  <main className="content">
+                    <Topbar />
+                    <Products />
+                  </main>
+                </div>
+              ) : (
+                <Navigate to="/login" replace />
+              )}
+            />
+            <Route
+              path="/createproduct"
+              element={isLoggedIn ? (
+                <div className="fullview">
+                  <Sidebar />
+                  <main className="content">
+                    <Topbar />
+                    <Createproduct />
                   </main>
                 </div>
               ) : (

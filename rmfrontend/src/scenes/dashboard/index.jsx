@@ -11,17 +11,20 @@ import PieChart from "../../components/PieChart";
 import BarChart from "../../components/BarChart";
 import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../auth/authSlice.js";
 
 
 const Dashboard = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const user = useSelector(selectUser);
 
     return (
         <Box p={2}>
             <Box display="flex" justifyContent="space-between" p={2}>
                 <Box display="flex" justifyContent="space-between" alignItems="center"  >
-                    <Header title="DASHBOARD" subtitle="Welcome Avishka to your Dashboard" />
+                    <Header title="DASHBOARD" subtitle={ "Welcome " + user.name + " to Your Dashboard"}  />
                 </Box>
                 <Box>
                     <Button

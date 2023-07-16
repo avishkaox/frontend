@@ -14,6 +14,14 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
+import FoodBankOutlinedIcon from '@mui/icons-material/FoodBankOutlined';
+import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
+import SoupKitchenOutlinedIcon from '@mui/icons-material/SoupKitchenOutlined';
+import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
+import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import { useSelector } from "react-redux";
 import { selectUser } from "../../auth/authSlice.js";
 
@@ -122,7 +130,7 @@ const Sidebar = () => {
                                 />
                                 <Box textAlign="center" >
                                     <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{ m: "10px 0 0 0" }} > {user.name}</Typography>
-                                    <Typography variant="h5" color={colors.greenAccent[500]}  > {user.role} </Typography>
+                                    <Typography variant="h5" color={colors.greenAccent[500]} textTransform="capitalize"  > {user.role} </Typography>
                                 </Box>
                             </Box>
                         </Box>
@@ -164,6 +172,93 @@ const Sidebar = () => {
                             title="Invoice Balances"
                             to="/invoices"
                             icon={<ReceiptOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Typography
+                            variant="h6"
+                            color={colors.grey[300]}
+                            sx={{ m: "15px 0 5px 20px" }}
+                        >Products</Typography>
+
+                        <Item
+                            title="Products"
+                            to="/products"
+                            icon={<FoodBankOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="Create New Products"
+                            to="/createproduct"
+                            icon={<RestaurantOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="Manage Products"
+                            to="/manageproduct"
+                            icon={<SoupKitchenOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Typography
+                            variant="h6"
+                            color={colors.grey[300]}
+                            sx={{ m: "15px 0 5px 20px" }}
+                        >Items</Typography>
+
+                        <Item
+                            title="Items"
+                            to="/items"
+                            icon={<ChecklistOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Item
+                            title="Create New Items"
+                            to="/createitem"
+                            icon={<EditNoteOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Item
+                            title="Manage Items"
+                            to="/manageitem"
+                            icon={<EditNoteOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Typography
+                            variant="h6"
+                            color={colors.grey[300]}
+                            sx={{ m: "15px 0 5px 20px" }}
+                        >Categories</Typography>
+
+                        <Item
+                            title="Categories"
+                            to="/categories"
+                            icon={<CategoryOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+
+                        <Item
+                            title="Create New Category"
+                            to="/createcategory"
+                            icon={<ModeEditOutlineOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="Manage Category"
+                            to="/managecategory"
+                            icon={<BorderColorOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />

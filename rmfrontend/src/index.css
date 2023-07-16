@@ -73,4 +73,9 @@ body,
 .login-link{
   color: aquamarine;
 }
-
+.access-cell{
+  justify-content: center !important;
+}
+.pro-sidebar.collapsed {
+  width: 92px !important;
+}
