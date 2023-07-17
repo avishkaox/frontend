@@ -34,6 +34,8 @@ export const getUser = async () => {
     }
 };
 
+// Get All Users
+
 export const getAllUser = async () => {
     try {
         const response = await axios.get(`${API}/api/users/getallUser`);
@@ -42,6 +44,29 @@ export const getAllUser = async () => {
             ...user, // Spread the user object properties
         }));
         return allUsers;
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        toast.error(message);
+        throw error;
+    }
+};
+
+// Product section 
+
+
+// Get All Products 
+
+export const getAllProducts = async () => {
+    try {
+        const response = await axios.get(`${API}/api/products`);
+        const allProducts = response.data.map((product, index) => ({
+            id: index + 1, // Assign a unique id to each product object
+            ...product, // Spread the user product properties
+        }));
+        return allProducts;
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||

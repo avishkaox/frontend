@@ -39,6 +39,11 @@ const authSlice = createSlice({
         },
         SET_ALL_USERS(state, action) {
             state.allUsers = action.payload;
+            localStorage.setItem("allUsers", JSON.stringify(action.payload));
+        },
+        SET_ALL_PRODUCTS(state, action) {
+            state.allProducts = action.payload;
+            localStorage.setItem("allProducts", JSON.stringify(action.payload));
         },
     },
 });
@@ -47,11 +52,12 @@ const authSlice = createSlice({
 
 
 
-export const { SET_LOGIN, SET_NAME, SET_USER , SET_ALL_USERS } = authSlice.actions;
+export const { SET_LOGIN, SET_NAME, SET_USER , SET_ALL_USERS , SET_ALL_PRODUCTS } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;
 export const selectUser = (state) => state.auth.user;
 export const selectAllUsers = (state) => state.auth.allUsers;
+export const selectAllProducts = (state) => state.auth.allProducts;
 
 export default authSlice.reducer;
