@@ -227,7 +227,7 @@ const Sidebar = () => {
                         />
 
                         <Item
-                            title="Manage Items"
+                            title="Manage Inventory"
                             to="/manageitem"
                             icon={<EditNoteOutlinedIcon />}
                             selected={selected}

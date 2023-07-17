@@ -1,13 +1,14 @@
+
 import Header from "../../components/Header";
 import { Box } from "@mui/material";
 
 
-const Manageproducts = () => {
+const Createitems = () => {
     return (
         <Box m="20px">
-            <Header title="MANAGE PRODUCTS" subtitle="Manage Your Products" />
+            <Header title="CREAT ITEMS" subtitle="Create New Items" />
         </Box>
     )
 }
 
-export default Manageproducts;
+export default Createitems;

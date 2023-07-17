@@ -17,6 +17,9 @@ import Login from "./scenes/user/login";
 import Products from "./scenes/produts/Products";
 import Createproduct from "./scenes/produts/Createproducts";
 import { selectIsLoggedIn } from "./auth/authSlice";
+import Manageproducts from "./scenes/produts/Manageproducts";
+import Items from "./scenes/items/Items";
+import Createitems from "./scenes/items/Createitems";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -189,6 +192,48 @@ function App() {
                   <main className="content">
                     <Topbar />
                     <Createproduct />
+                  </main>
+                </div>
+              ) : (
+                <Navigate to="/login" replace />
+              )}
+            />
+            <Route
+              path="/manageproduct"
+              element={isLoggedIn ? (
+                <div className="fullview">
+                  <Sidebar />
+                  <main className="content">
+                    <Topbar />
+                    <Manageproducts />
+                  </main>
+                </div>
+              ) : (
+                <Navigate to="/login" replace />
+              )}
+            />
+            <Route
+              path="/items"
+              element={isLoggedIn ? (
+                <div className="fullview">
+                  <Sidebar />
+                  <main className="content">
+                    <Topbar />
+                    <Items />
+                  </main>
+                </div>
+              ) : (
+                <Navigate to="/login" replace />
+              )}
+            />
+            <Route
+              path="/createitem"
+              element={isLoggedIn ? (
+                <div className="fullview">
+                  <Sidebar />
+                  <main className="content">
+                    <Topbar />
+                    <Createitems />
                   </main>
                 </div>
               ) : (

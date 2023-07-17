@@ -103,13 +103,15 @@ const Team = () => {
         formData.append("phone", values.phone);
         formData.append("role", values.role);
 
-        if ( !values.name ||!values.email ||!values.phone ) {
+       
+        // check if the form filed are empty
+        if (values.name === '' && values.email === '' && values.phone === '' ) {
             toast.error("Please fill all the fields");
             return;
         }
 
         try {
-            const response = await fetch(`${API}/api/users/updateuser/${selectedUser.id}`, {
+            const response = await fetch(`${API}/api/users/updateuser/${selectedUser._id}`, {
                 method: "PATCH",
                 body: formData,
             });
@@ -118,7 +120,7 @@ const Team = () => {
                 const data = await response.json();
                 console.log(data);
                 toast.success("User Updated successfully!", {
-                    position: toast.POSITION.TOP_CENTER,
+                    // position: toast.POSITION.TOP_CENTER,
                     autoClose: 5000,
                     hideProgressBar: true,
                     pauseOnHover: true,
@@ -129,7 +131,7 @@ const Team = () => {
                 const errorData = await response.json();
                 const errorMessage = errorData.message || "User Updating failed";
                 toast.error(errorMessage, {
-                    position: toast.POSITION.TOP_CENTER,
+                    // position: toast.POSITION.TOP_CENTER,
                     autoClose: 5000,
                     hideProgressBar: true,
                     pauseOnHover: true,
