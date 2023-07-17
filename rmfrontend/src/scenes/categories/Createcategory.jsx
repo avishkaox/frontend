@@ -3,12 +3,12 @@ import Header from "../../components/Header";
 import { Box } from "@mui/material";
 
 
-const Items = () => {
+const Createcategory = () => {
     return (
         <Box m="20px">
-            <Header title="Stock" subtitle="View all Items" />
+            <Header title="CREATE NEW CATEGORIES" subtitle="Create Categories" />
         </Box>
     )
 }
 
-export default Items;
+export default Createcategory;

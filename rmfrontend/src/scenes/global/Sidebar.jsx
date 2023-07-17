@@ -21,7 +21,6 @@ import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import { useSelector } from "react-redux";
 import { selectUser } from "../../auth/authSlice.js";
 
@@ -211,7 +210,7 @@ const Sidebar = () => {
                         >Items</Typography>
 
                         <Item
-                            title="Items"
+                            title="Inventory"
                             to="/items"
                             icon={<ChecklistOutlinedIcon />}
                             selected={selected}
@@ -221,14 +220,6 @@ const Sidebar = () => {
                         <Item
                             title="Create New Items"
                             to="/createitem"
-                            icon={<EditNoteOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-
-                        <Item
-                            title="Manage Inventory"
-                            to="/manageitem"
                             icon={<EditNoteOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
@@ -252,13 +243,6 @@ const Sidebar = () => {
                             title="Create New Category"
                             to="/createcategory"
                             icon={<ModeEditOutlineOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Manage Category"
-                            to="/managecategory"
-                            icon={<BorderColorOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />

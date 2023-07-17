@@ -20,6 +20,8 @@ import { selectIsLoggedIn } from "./auth/authSlice";
 import Manageproducts from "./scenes/produts/Manageproducts";
 import Items from "./scenes/items/Items";
 import Createitems from "./scenes/items/Createitems";
+import Categories from "./scenes/categories/Categories";
+import Createcategory from "./scenes/categories/Createcategory";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -234,6 +236,34 @@ function App() {
                   <main className="content">
                     <Topbar />
                     <Createitems />
+                  </main>
+                </div>
+              ) : (
+                <Navigate to="/login" replace />
+              )}
+            />
+            <Route
+              path="/categories"
+              element={isLoggedIn ? (
+                <div className="fullview">
+                  <Sidebar />
+                  <main className="content">
+                    <Topbar />
+                    <Categories />
+                  </main>
+                </div>
+              ) : (
+                <Navigate to="/login" replace />
+              )}
+            />
+             <Route
+              path="/createcategory"
+              element={isLoggedIn ? (
+                <div className="fullview">
+                  <Sidebar />
+                  <main className="content">
+                    <Topbar />
+                    <Createcategory />
                   </main>
                 </div>
               ) : (
