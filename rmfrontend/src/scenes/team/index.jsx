@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import { Box, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogActions, Button, CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from "@mui/x-data-grid";
 import { Formik, Form, Field } from 'formik';
@@ -21,11 +21,12 @@ const Team = () => {
   // State to hold the allUsers data
   const [allUsers, setAllUser] = useState([]);
 
-  const [temp, settemp ] = useState([]);
+  const [temp, settemp] = useState([]);
+  const [loading, setLoading] = useState(false); // Loading state
 
   // Get all user data from localStorage or fetch from backend API
-  useEffect( () => {
-    console.log('temp',temp)
+  useEffect(() => {
+    setLoading(true);
     getAllUser().then((res) => {
       const allUsersData = res;
       if (allUsersData) {
@@ -33,10 +34,9 @@ const Team = () => {
       } else {
         fetchData();
       }
+      setLoading(false);
     });
-    // const allUsersData = JSON.parse(localStorage.getItem('allUsersData'));
-    // const allUsersData = await JSON.parse(getAllUser())
-    
+
   }, [temp]);
 
   // Fetch all user data from the backend API
@@ -52,7 +52,7 @@ const Team = () => {
   };
 
   const handleRowClick = (params) => {
-    console.log('here',params.row);
+    console.log('here', params.row);
     setSelectedUser(params.row);
     setOpenFormDialog(true);
   };
@@ -83,7 +83,6 @@ const Team = () => {
             }
             borderRadius="4px"
             style={{ cursor: 'pointer' }}
-            // onClick={() => handleRowClick(row)}
           >
             {row.role === 'manager' && <AdminPanelSettingsOutlinedIcon />}
             {row.role === 'employee' && <PersonOutlineOutlinedIcon />}
@@ -130,29 +129,19 @@ const Team = () => {
     formData.append("email", values.email);
     formData.append("phone", values.phone);
     formData.append("role", values.role);
-
-    // console.log('dd',JSON.stringify(values))
-
-    // let data = {
-    //   name: values.name,
-    //   email: values.email,
-    //   phone: values.phone,
-    //   role: values.role,
-    // }
     try {
       const response = await fetch(`${API}/api/users/updateuser/${selectedUser._id}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
-          },
-        
+        },
+
         method: "PATCH",
-        body:  JSON.stringify(values),
+        body: JSON.stringify(values),
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log('here');
         settemp(data);
         toast.success("User Updated successfully!", {
           autoClose: 5000,
@@ -204,43 +193,52 @@ const Team = () => {
   return (
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the team Members" />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeader": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiDataGrid-panelFooter button": {
-            color: "white !important",
-          },
-        }}
-      >
-        <DataGrid
-          rows={allUsers}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10, 20, 80]}
-          onRowClick={handleRowClick}
-        />
-      </Box>
+      {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress   sx={{
+              position: 'absolute',
+              top: "50%"
+            }} color="secondary" />
+        </Box>) : (
+        <Box
+          m="40px 0 0 0"
+          height="75vh"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-cell": {
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeader": {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[700],
+            },
+            "& .MuiDataGrid-panelFooter button": {
+              color: "white !important",
+            },
+          }}
+        >
+          <DataGrid
+            rows={allUsers}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10, 20, 80]}
+            onRowClick={handleRowClick}
+          />
+        </Box>
+      )
+      }
 
       <Dialog open={openFormDialog} onClose={() => setOpenFormDialog(false)}>
         <DialogTitle>Edit User</DialogTitle>
@@ -249,13 +247,13 @@ const Team = () => {
             initialValues={selectedUser || {}}
             validationSchema={validationSchema}
             onSubmit={handleFormSubmit}
-            
+
           >
             {({ values, errors, touched, handleChange }) => (
               <Form>
                 <Box my={2}>
                   <Typography>Name</Typography>
-                  <Field type="text" name="name" style={formFieldStyles}  />
+                  <Field type="text" name="name" style={formFieldStyles} />
                   {errors.name && touched.name && <Typography>{errors.name}</Typography>}
                 </Box>
                 <Box my={2}>
@@ -283,11 +281,11 @@ const Team = () => {
                 <Button type="submit">Submit</Button>
               </Form>
             )}
-             
+
           </Formik>
         </DialogContent>
         <DialogActions>
-         
+
         </DialogActions>
       </Dialog>
     </Box>

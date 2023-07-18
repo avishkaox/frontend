@@ -13,12 +13,7 @@ const Products = () => {
 
     // Get all user data from localStorage or fetch from backend API
     useEffect(() => {
-        // const allProductsData = JSON.parse(localStorage.getItem('allProductsData'));
-        // if (allProductsData && Array.isArray(allProductsData)) {
-        //     setAllProducts(allProductsData);
-        // } else {
-            fetchData();
-        // }
+        fetchData();
     }, []);
 
     // Fetch all product data from the backend API
@@ -26,10 +21,8 @@ const Products = () => {
         try {
             const products = await getAllProducts();
             setAllProducts(products);
-            // Save the data in localStorage
-            // localStorage.setItem('allProductsData', JSON.stringify(products));
         } catch (error) {
-            // Handle the error
+            console.log(error);
         }
     };
 
@@ -55,15 +48,15 @@ const Products = () => {
                                 <CardMedia
                                     component="img"
                                     height="200"
-                                    image={allProducts.image?.filePath} // Use card.image.filePath instead of allProducts.image.filePath
+                                    image={allProducts.image?.filePath} 
                                     alt="Card Image"
                                 />
                                 <CardContent>
                                     <Typography variant="h5">
-                                        {allProducts.name} {/* Use card.name instead of allProducts.name */}
+                                        {allProducts.name} 
                                     </Typography>
                                     <Typography variant="h3">
-                                        {allProducts.price} {/* Use card.price instead of allProducts.price */}
+                                        {allProducts.price}
                                     </Typography>
                                 </CardContent>
                             </Card>
