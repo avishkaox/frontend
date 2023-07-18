@@ -39,7 +39,6 @@ const authSlice = createSlice({
         },
         SET_ALL_USERS(state, action) {
             state.allUsers = action.payload;
-            localStorage.setItem("allUsers", JSON.stringify(action.payload));
         },
         SET_ALL_PRODUCTS(state, action) {
             state.allProducts = action.payload;

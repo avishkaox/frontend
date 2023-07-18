@@ -21,15 +21,23 @@ const Team = () => {
   // State to hold the allUsers data
   const [allUsers, setAllUser] = useState([]);
 
+  const [temp, settemp ] = useState([]);
+
   // Get all user data from localStorage or fetch from backend API
-  useEffect(() => {
-    const allUsersData = JSON.parse(localStorage.getItem('allUsersData'));
-    if (allUsersData) {
-      setAllUser(allUsersData);
-    } else {
-      fetchData();
-    }
-  }, []);
+  useEffect( () => {
+    console.log('temp',temp)
+    getAllUser().then((res) => {
+      const allUsersData = res;
+      if (allUsersData) {
+        setAllUser(allUsersData);
+      } else {
+        fetchData();
+      }
+    });
+    // const allUsersData = JSON.parse(localStorage.getItem('allUsersData'));
+    // const allUsersData = await JSON.parse(getAllUser())
+    
+  }, [temp]);
 
   // Fetch all user data from the backend API
   const fetchData = async () => {
@@ -44,6 +52,7 @@ const Team = () => {
   };
 
   const handleRowClick = (params) => {
+    console.log('here',params.row);
     setSelectedUser(params.row);
     setOpenFormDialog(true);
   };
@@ -74,7 +83,7 @@ const Team = () => {
             }
             borderRadius="4px"
             style={{ cursor: 'pointer' }}
-            onClick={() => handleRowClick(row)}
+            // onClick={() => handleRowClick(row)}
           >
             {row.role === 'manager' && <AdminPanelSettingsOutlinedIcon />}
             {row.role === 'employee' && <PersonOutlineOutlinedIcon />}
@@ -99,7 +108,6 @@ const Team = () => {
 
   const [selectedUser, setSelectedUser] = React.useState(null);
   const [openFormDialog, setOpenFormDialog] = React.useState(false);
-  console.log(selectedUser && selectedUser);
 
   const formFieldStyles = {
     width: "100%",
@@ -123,15 +131,29 @@ const Team = () => {
     formData.append("phone", values.phone);
     formData.append("role", values.role);
 
+    // console.log('dd',JSON.stringify(values))
+
+    // let data = {
+    //   name: values.name,
+    //   email: values.email,
+    //   phone: values.phone,
+    //   role: values.role,
+    // }
     try {
       const response = await fetch(`${API}/api/users/updateuser/${selectedUser._id}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+          },
+        
         method: "PATCH",
-        body: formData,
+        body:  JSON.stringify(values),
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        console.log('here');
+        settemp(data);
         toast.success("User Updated successfully!", {
           autoClose: 5000,
           hideProgressBar: true,
@@ -162,7 +184,22 @@ const Team = () => {
       });
     }
     setOpenFormDialog(false);
+
   };
+
+  // let chart = []
+
+
+  // test.map(() => {
+  //   chart.push({
+  //     "id": "scala",
+  //     "label": "scala",
+  //     "value": 513,
+  //     "color": "hsl(347, 70%, 50%)"
+  //       })
+  // })
+
+
 
   return (
     <Box m="20px">
@@ -212,12 +249,13 @@ const Team = () => {
             initialValues={selectedUser || {}}
             validationSchema={validationSchema}
             onSubmit={handleFormSubmit}
+            
           >
-            {({ errors, touched }) => (
+            {({ values, errors, touched, handleChange }) => (
               <Form>
                 <Box my={2}>
                   <Typography>Name</Typography>
-                  <Field type="text" name="name" style={formFieldStyles} />
+                  <Field type="text" name="name" style={formFieldStyles}  />
                   {errors.name && touched.name && <Typography>{errors.name}</Typography>}
                 </Box>
                 <Box my={2}>
@@ -241,13 +279,15 @@ const Team = () => {
                   </Field>
                   {errors.role && touched.role && <Typography>{errors.role}</Typography>}
                 </Box>
+                <Button onClick={() => setOpenFormDialog(false)}>Cancel</Button>
+                <Button type="submit">Submit</Button>
               </Form>
             )}
+             
           </Formik>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenFormDialog(false)}>Cancel</Button>
-          <Button onClick={handleFormSubmit} type="submit">Submit</Button>
+         
         </DialogActions>
       </Dialog>
     </Box>

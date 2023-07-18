@@ -13,12 +13,12 @@ const Products = () => {
 
     // Get all user data from localStorage or fetch from backend API
     useEffect(() => {
-        const allProductsData = JSON.parse(localStorage.getItem('allProductsData'));
-        if (allProductsData) {
-            setAllProducts(allProductsData);
-        } else {
+        // const allProductsData = JSON.parse(localStorage.getItem('allProductsData'));
+        // if (allProductsData && Array.isArray(allProductsData)) {
+        //     setAllProducts(allProductsData);
+        // } else {
             fetchData();
-        }
+        // }
     }, []);
 
     // Fetch all product data from the backend API
@@ -27,7 +27,7 @@ const Products = () => {
             const products = await getAllProducts();
             setAllProducts(products);
             // Save the data in localStorage
-            localStorage.setItem('allProductsData', JSON.stringify(products));
+            // localStorage.setItem('allProductsData', JSON.stringify(products));
         } catch (error) {
             // Handle the error
         }
