@@ -10,6 +10,8 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import { getAllUser } from "../../auth/authService.js";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../auth/authSlice.js";
 import { API } from "../../config.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +19,10 @@ import "react-toastify/dist/ReactToastify.css";
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  // current logged user 
+  const userNeedToRemove = useSelector(selectUser);
+  console.log(userNeedToRemove.email)
 
   // State to hold the allUsers data
   const [allUsers, setAllUser] = useState([]);
@@ -29,8 +35,11 @@ const Team = () => {
     setLoading(true);
     getAllUser().then((res) => {
       const allUsersData = res;
-      if (allUsersData) {
-        setAllUser(allUsersData);
+
+      const updatedAllUsers = allUsersData.filter(user => user.email !== userNeedToRemove.email);
+
+      if (updatedAllUsers) {
+        setAllUser(updatedAllUsers);
       } else {
         fetchData();
       }
@@ -43,9 +52,14 @@ const Team = () => {
   const fetchData = async () => {
     try {
       const users = await getAllUser();
-      setAllUser(users);
+
+      // Remove loged user from the list 
+
+      const updatedAllUserss = users.filter(user => user.email !== userNeedToRemove.email);
+
+      setAllUser(updatedAllUserss);
       // Save the data in localStorage
-      localStorage.setItem('allUsersData', JSON.stringify(users));
+      localStorage.setItem('updatedAllUsers', JSON.stringify(users));
     } catch (error) {
       // Handle the error
     }
@@ -195,10 +209,10 @@ const Team = () => {
       <Header title="TEAM" subtitle="Managing the team Members" />
       {loading ? (
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <CircularProgress   sx={{
-              position: 'absolute',
-              top: "50%"
-            }} color="secondary" />
+          <CircularProgress sx={{
+            position: 'absolute',
+            top: "50%"
+          }} color="secondary" />
         </Box>) : (
         <Box
           m="40px 0 0 0"
