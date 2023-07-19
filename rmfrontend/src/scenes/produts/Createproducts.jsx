@@ -1,5 +1,5 @@
-import { Box, Button, TextField, MenuItem, Typography } from "@mui/material";
-import { Formik, Form, Field } from 'formik';
+import { Box, Button, TextField, MenuItem, Typography , useTheme } from "@mui/material";
+import { Formik, Form  } from 'formik';
 import * as Yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useEffect, useState } from 'react';
@@ -7,6 +7,7 @@ import { getAllItems, getAllCategories } from "../../auth/authService.js";
 import Header from "../../components/Header";
 import { API } from "../../config.js";
 import { toast } from "react-toastify";
+import { tokens } from "../../theme";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../auth/authSlice.js";
@@ -34,6 +35,8 @@ const userSchema = Yup.object().shape({
 
 
 const Createproduct = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
     const user = useSelector(selectUser);
 
@@ -47,7 +50,6 @@ const Createproduct = () => {
 
     // Get all user data from localStorage or fetch from backend API
     useEffect(() => {
-        console.log(user)
         fetchData();
     }, []);
 
@@ -91,6 +93,7 @@ const Createproduct = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
+                
                 toast.success("Product created successfully!", {
                     autoClose: 5000,
                     hideProgressBar: true,
@@ -290,18 +293,18 @@ const Createproduct = () => {
                                 >
                                     Add Item
                                 </Button>
-                                <Box gridColumn="span 4">
+                                <Box  gridColumn="span 4">
                                     {selectedItems.map((item) => (
-                                        <Box key={item.itemId} display="flex" alignItems="center">
+                                        <Box className="itembox" sx={{ backgroundColor:colors.blueAccent[400] , color:"white" }} key={item.itemId} display="inline-flex" alignItems="center">
                                             <Typography>
-                                                Item: {allItems.find((i) => i._id === item.itemId)?.name}, Quantity: {item.quantity}
+                                                Item: {allItems.find((i) => i._id === item.itemId)?.name}, Quantity: {item.quantity}{allItems.find((i) => i._id === item.itemId)?.usedby}
                                             </Typography>
                                             <Button
-                                                variant="outlined"
+                                                // variant="outlined"
                                                 color="error"
                                                 size="small"
                                                 onClick={() => handleDeleteItem(item.itemId)}
-                                                sx={{ ml: 1 }}
+                                                sx={{ ml: 20 , backgroundColor: "#ff6b6b" , color: "#fff" , border: "none" }}
                                             >
                                                 Delete
                                             </Button>
