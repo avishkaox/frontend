@@ -76,3 +76,49 @@ export const getAllProducts = async () => {
         throw error;
     }
 };
+
+
+// Item section 
+
+// Get All Items
+
+export const getAllItems = async () => {
+    try {
+        const response = await axios.get(`${API}/api/items`);
+        const allItems = response.data.map((item, index) => ({
+            id: item + 1, // Assign a unique id to each product object
+            ...item, // Spread the user product properties
+        }));
+        return allItems;
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        toast.error(message);
+        throw error;
+    }
+};
+
+
+// Category
+
+// Get All Categories
+
+export const getAllCategories = async () => {
+    try {
+        const response = await axios.get(`${API}/api/categories`);
+        const allCategories = response.data.map((category, index) => ({
+            id: category + 1, // Assign a unique id to each product object
+            ...category, // Spread the user product properties
+        }));
+        return allCategories;
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        toast.error(message);
+        throw error;
+    }
+};

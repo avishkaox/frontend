@@ -50,7 +50,6 @@ const Form = () => {
                 const data = await response.json();
                 console.log(data);
                 toast.success("User created successfully!", {
-                    position: toast.POSITION.TOP_CENTER,
                     autoClose: 5000,
                     hideProgressBar: true,
                     pauseOnHover: true,
@@ -62,7 +61,6 @@ const Form = () => {
                 const errorData = await response.json();
                 const errorMessage = errorData.message || "User creation failed";
                 toast.error(errorMessage, {
-                    position: toast.POSITION.TOP_CENTER,
                     autoClose: 5000,
                     hideProgressBar: true,
                     pauseOnHover: true,
@@ -90,136 +88,137 @@ const Form = () => {
     return (
         <Box m="20px">
             <Header title="CREATE USER" subtitle="Create a new User Profile" />
-            <Formik
-                onSubmit={handleFormSubmit}
-                initialValues={initialValues}
-                validationSchema={userSchema}
-            >
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    setFieldValue,
-                }) => (
-                    <form onSubmit={handleSubmit}>
-                        <Box
-                            display="grid"
-                            gap="30px"
-                            gridTemplateColumns="repeat(4 , minmax( 0 , 1fr))"
-                            sx={{
-                                "& > div": {
-                                    gridColumn: isNonMobile ? undefined : "span 4",
-                                },
-                            }}
-                        >
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                type="text"
-                                label="Name"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.name}
-                                name="name"
-                                error={touched.name && Boolean(errors.name)}
-                                helperText={touched.name && errors.name}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                type="text"
-                                label="Email"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.email}
-                                name="email"
-                                error={touched.email && Boolean(errors.email)}
-                                helperText={touched.email && errors.email}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                type="password"
-                                label="Password"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.password}
-                                name="password"
-                                error={touched.password && Boolean(errors.password)}
-                                helperText={touched.password && errors.password}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                type="text"
-                                label="Phone"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.phone}
-                                name="phone"
-                                error={touched.phone && Boolean(errors.phone)}
-                                helperText={touched.phone && errors.phone}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                select
-                                label="Role"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.role}
-                                name="role"
-                                error={touched.role && Boolean(errors.role)}
-                                helperText={touched.role && errors.role}
-                                sx={{ gridColumn: "span 2" }}
+            <Box mt="20px">
+                <Formik
+                    onSubmit={handleFormSubmit}
+                    initialValues={initialValues}
+                    validationSchema={userSchema}
+                >
+                    {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        setFieldValue,
+                    }) => (
+                        <form onSubmit={handleSubmit}>
+                            <Box
+                                display="grid"
+                                gap="30px"
+                                gridTemplateColumns="repeat(4 , minmax( 0 , 1fr))"
+                                sx={{
+                                    "& > div": {
+                                        gridColumn: isNonMobile ? undefined : "span 4",
+                                    },
+                                }}
                             >
-                                <MenuItem value="employee">Employee</MenuItem>
-                                <MenuItem value="manager">Manager</MenuItem>
-                                <MenuItem value="cashier">Cashier</MenuItem>
-                                <MenuItem value="chef">Chef</MenuItem>
-                            </TextField>
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                type="number"
-                                label="Register ID"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.registerid}
-                                name="registerid"
-                                error={touched.registerid && Boolean(errors.registerid)}
-                                helperText={touched.registerid && errors.registerid}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                type="file"
-                                onBlur={handleBlur}
-                                onChange={(event) =>
-                                    handleImageChange(event, setFieldValue, "image")
-                                }
-                                name="image"
-                                sx={{ gridColumn: "span 2" }}
-                            />
-                        </Box>
-                        <Box display="flex" justifyContent="end" mt="20px">
-                            <Button type="submit" color="secondary" variant="contained">
-                                Create New User
-                            </Button>
-                        </Box>
-                    </form>
-                )}
-            </Formik>
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    type="text"
+                                    label="Name"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.name}
+                                    name="name"
+                                    error={touched.name && Boolean(errors.name)}
+                                    helperText={touched.name && errors.name}
+                                    sx={{ gridColumn: "span 2" }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    type="text"
+                                    label="Email"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.email}
+                                    name="email"
+                                    error={touched.email && Boolean(errors.email)}
+                                    helperText={touched.email && errors.email}
+                                    sx={{ gridColumn: "span 2" }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    type="password"
+                                    label="Password"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.password}
+                                    name="password"
+                                    error={touched.password && Boolean(errors.password)}
+                                    helperText={touched.password && errors.password}
+                                    sx={{ gridColumn: "span 2" }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    type="text"
+                                    label="Phone"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.phone}
+                                    name="phone"
+                                    error={touched.phone && Boolean(errors.phone)}
+                                    helperText={touched.phone && errors.phone}
+                                    sx={{ gridColumn: "span 2" }}
+                                />
 
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    select
+                                    label="Role"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.role}
+                                    name="role"
+                                    error={touched.role && Boolean(errors.role)}
+                                    helperText={touched.role && errors.role}
+                                    sx={{ gridColumn: "span 2" }}
+                                >
+                                    <MenuItem value="employee">Employee</MenuItem>
+                                    <MenuItem value="manager">Manager</MenuItem>
+                                    <MenuItem value="cashier">Cashier</MenuItem>
+                                    <MenuItem value="chef">Chef</MenuItem>
+                                </TextField>
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    type="number"
+                                    label="Register ID"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.registerid}
+                                    name="registerid"
+                                    error={touched.registerid && Boolean(errors.registerid)}
+                                    helperText={touched.registerid && errors.registerid}
+                                    sx={{ gridColumn: "span 2" }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    type="file"
+                                    onBlur={handleBlur}
+                                    onChange={(event) =>
+                                        handleImageChange(event, setFieldValue, "image")
+                                    }
+                                    name="image"
+                                    sx={{ gridColumn: "span 2" }}
+                                />
+                            </Box>
+                            <Box display="flex" justifyContent="end" mt="20px">
+                                <Button type="submit" color="secondary" variant="contained">
+                                    Create New User
+                                </Button>
+                            </Box>
+                        </form>
+                    )}
+                </Formik>
+            </Box>
         </Box>
     );
 };

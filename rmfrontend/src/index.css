@@ -79,3 +79,6 @@ body,
 .pro-sidebar.collapsed {
   width: 92px !important;
 }
+.Header{
+  padding-bottom: 21px !important;
+}

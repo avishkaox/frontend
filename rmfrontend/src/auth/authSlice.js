@@ -14,6 +14,7 @@ const initialState = {
         role: "",
         registerid: "",
         image: null,
+        _id: null
     },
 };
 
@@ -36,6 +37,7 @@ const authSlice = createSlice({
             state.user.role = profile.role;
             state.user.registerid = profile.registerid;
             state.user.image = profile.image;
+            state.user._id = profile._id;
         },
         SET_ALL_USERS(state, action) {
             state.allUsers = action.payload;
@@ -44,6 +46,14 @@ const authSlice = createSlice({
             state.allProducts = action.payload;
             localStorage.setItem("allProducts", JSON.stringify(action.payload));
         },
+        SET_ALL_ITEMS(state, action) {
+            state.allItems = action.payload;
+            localStorage.setItem("allItems", JSON.stringify(action.payload));
+        },
+        SET_ALL_CATEGORIES(state, action) {
+            state.allCategories = action.payload;
+            localStorage.setItem("allCategories", JSON.stringify(action.payload));
+        },
     },
 });
 
@@ -51,12 +61,14 @@ const authSlice = createSlice({
 
 
 
-export const { SET_LOGIN, SET_NAME, SET_USER , SET_ALL_USERS , SET_ALL_PRODUCTS } = authSlice.actions;
+export const { SET_LOGIN, SET_NAME, SET_USER , SET_ALL_USERS , SET_ALL_PRODUCTS , SET_ALL_ITEMS , SET_ALL_CATEGORIES } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;
 export const selectUser = (state) => state.auth.user;
 export const selectAllUsers = (state) => state.auth.allUsers;
 export const selectAllProducts = (state) => state.auth.allProducts;
+export const selectAllItems = (state) => state.auth.allItems;
+export const selectAllCategories = (state) => state.auth.allCategories;
 
 export default authSlice.reducer;

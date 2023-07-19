@@ -1,12 +1,12 @@
 import Header from "../../components/Header";
-import { Box, useTheme, Card, CardContent, CardMedia, Grid, Typography, Pagination } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Grid, Typography, Pagination } from "@mui/material";
 import React, { useEffect, useState } from 'react';
-import { tokens } from "../../theme";
+// import { tokens } from "../../theme";
 import { getAllProducts } from "../../auth/authService.js";
 
 const Products = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    // const theme = useTheme();
+    // const colors = tokens(theme.palette.mode);
 
     // State to hold the allproducts data
     const [allProducts, setAllProducts] = useState([]);

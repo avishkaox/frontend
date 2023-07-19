@@ -22,7 +22,7 @@ const Team = () => {
 
   // current logged user 
   const userNeedToRemove = useSelector(selectUser);
-  console.log(userNeedToRemove.email)
+  // console.log(userNeedToRemove.email)
 
   // State to hold the allUsers data
   const [allUsers, setAllUser] = useState([]);
