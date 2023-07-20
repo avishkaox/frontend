@@ -291,8 +291,10 @@ const Team = () => {
                   </Field>
                   {errors.role && touched.role && <Typography>{errors.role}</Typography>}
                 </Box>
-                <Button onClick={() => setOpenFormDialog(false)}>Cancel</Button>
-                <Button type="submit">Submit</Button>
+                <Box display="flex" alignItems="center" justifyContent="space-between" className="dialog-box-buttons" >
+                  <Button onClick={() => setOpenFormDialog(false)}>Cancel</Button>
+                  <Button type="submit">Submit</Button>
+                </Box>
               </Form>
             )}
 

@@ -114,3 +114,15 @@ body,
 .cardgrid{
   margin-top: 30px;
 }
+.dialog-box-buttons button:nth-child(1){
+  background: #c4ffcc;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+.dialog-box-buttons button:nth-child(2){
+  background: #4cff4c;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}

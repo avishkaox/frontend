@@ -20,6 +20,7 @@ const Manageproducts = () => {
     const colors = tokens(theme.palette.mode);
     const user = useSelector(selectUser);
 
+
     // State to hold the allUsers data
     const [allProducts, setAllProducts] = useState([]);
 
@@ -60,7 +61,7 @@ const Manageproducts = () => {
         setSelectedProduct(params.row);
         setOpenFormDialog(true);
     };
-
+    // console.log(allProducts.id);
     const columns = [
         { field: "id", headerName: "ID" },
         { field: "name", headerName: "Name", flex: 1, cellClassName: "name-cell" },
@@ -71,7 +72,7 @@ const Manageproducts = () => {
             flex: 1,
             renderCell: ({ row }) => (
                 <img
-                    src={row.image.filePath} 
+                    src={row.image.filePath}
                     alt={row.name}
                     style={{ width: 50, height: 50, objectFit: "cover", borderRadius: "50%" }}
                 />
@@ -188,20 +189,6 @@ const Manageproducts = () => {
 
     };
 
-    // let chart = []
-
-
-    // test.map(() => {
-    //   chart.push({
-    //     "id": "scala",
-    //     "label": "scala",
-    //     "value": 513,
-    //     "color": "hsl(347, 70%, 50%)"
-    //       })
-    // })
-
-
-
     return (
         <Box m="20px">
             <Header title="MANAGE PRODUCTS" subtitle="Manage Your Products" />
@@ -290,8 +277,10 @@ const Manageproducts = () => {
                                     </Field>
                                     {errors.collectlocation && touched.collectlocation && <Typography>{errors.collectlocation}</Typography>}
                                 </Box>
-                                <Button onClick={() => setOpenFormDialog(false)}>Cancel</Button>
-                                <Button type="submit">Submit</Button>
+                                <Box display="flex" alignItems="center" justifyContent="space-between" className="dialog-box-buttons" >
+                                    <Button onClick={() => setOpenFormDialog(false)}>Cancel</Button>
+                                    <Button type="submit">Submit</Button>
+                                </Box>
                             </Form>
                         )}
 
