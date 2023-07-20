@@ -54,6 +54,9 @@ const authSlice = createSlice({
             state.allCategories = action.payload;
             localStorage.setItem("allCategories", JSON.stringify(action.payload));
         },
+        CLEAR_ALL_USERS(state, action) {
+            state = initialState;
+        },
     },
 });
 
@@ -61,7 +64,7 @@ const authSlice = createSlice({
 
 
 
-export const { SET_LOGIN, SET_NAME, SET_USER , SET_ALL_USERS , SET_ALL_PRODUCTS , SET_ALL_ITEMS , SET_ALL_CATEGORIES } = authSlice.actions;
+export const { SET_LOGIN, SET_NAME, SET_USER , SET_ALL_USERS , SET_ALL_PRODUCTS , SET_ALL_ITEMS , SET_ALL_CATEGORIES , CLEAR_ALL_USERS } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;

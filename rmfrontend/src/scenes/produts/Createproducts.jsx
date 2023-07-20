@@ -1,5 +1,5 @@
-import { Box, Button, TextField, MenuItem, Typography , useTheme } from "@mui/material";
-import { Formik, Form  } from 'formik';
+import { Box, Button, TextField, MenuItem, Typography, useTheme } from "@mui/material";
+import { Formik, Form } from 'formik';
 import * as Yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useEffect, useState } from 'react';
@@ -70,7 +70,7 @@ const Createproduct = () => {
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
-    const handleFormSubmit = async (values , { resetForm }) => {
+    const handleFormSubmit = async (values, { resetForm }) => {
 
         const formData = new FormData();
         formData.append("name", values.name);
@@ -82,7 +82,7 @@ const Createproduct = () => {
         formData.append("image", values.image);
         formData.append("user", user._id)
 
-        console.log(user._id);
+       
 
         try {
             const response = await fetch(`${API}/api/products`, {
@@ -93,7 +93,7 @@ const Createproduct = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
-                
+
                 toast.success("Product created successfully!", {
                     autoClose: 5000,
                     hideProgressBar: true,
@@ -101,7 +101,7 @@ const Createproduct = () => {
                     draggable: true,
                     progress: undefined,
                 });
-            
+
                 resetForm(); // Reset the form
                 setSelectedItems([]); // Clear the selected items
             } else {
@@ -116,7 +116,7 @@ const Createproduct = () => {
                 });
             }
         } catch (error) {
-            console.error('asas',error);
+            console.error('asas', error);
             toast.error("An error occurred. Please try again.", {
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -140,11 +140,10 @@ const Createproduct = () => {
                 <Formik
                     initialValues={initialValues}
                     validationSchema={userSchema}
-                    
                     onSubmit={handleFormSubmit}
                 >
-                     {({ values, errors, touched, handleChange , handleBlur, setFieldValue}) => (
-              <Form>
+                    {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
+                        <Form>
                             <Box
                                 display="grid"
                                 gap="30px"
@@ -293,9 +292,9 @@ const Createproduct = () => {
                                 >
                                     Add Item
                                 </Button>
-                                <Box  gridColumn="span 4">
+                                <Box gridColumn="span 4">
                                     {selectedItems.map((item) => (
-                                        <Box className="itembox" sx={{ backgroundColor:colors.blueAccent[400] , color:"white" }} key={item.itemId} display="inline-flex" alignItems="center">
+                                        <Box className="itembox" sx={{ backgroundColor: colors.blueAccent[400], color: "white" }} key={item.itemId} display="inline-flex" alignItems="center">
                                             <Typography>
                                                 Item: {allItems.find((i) => i._id === item.itemId)?.name}, Quantity: {item.quantity}{allItems.find((i) => i._id === item.itemId)?.usedby}
                                             </Typography>
@@ -304,7 +303,7 @@ const Createproduct = () => {
                                                 color="error"
                                                 size="small"
                                                 onClick={() => handleDeleteItem(item.itemId)}
-                                                sx={{ ml: 20 , backgroundColor: "#ff6b6b" , color: "#fff" , border: "none" }}
+                                                sx={{ ml: 20, backgroundColor: "#ff6b6b", color: "#fff", border: "none" }}
                                             >
                                                 Delete
                                             </Button>
@@ -313,12 +312,12 @@ const Createproduct = () => {
                                 </Box>
                             </Box>
                             {/* <Box display="flex" justifyContent="end" mt="20px"> */}
-                                <Button  type="submit"  color="secondary" variant="contained">
-                                    Create New Product
-                                </Button>
+                            <Button type="submit" color="secondary" variant="contained">
+                                Create New Product
+                            </Button>
                             {/* </Box> */}
-                            </Form>
-            )}
+                        </Form>
+                    )}
                 </Formik>
             </Box>
         </Box>

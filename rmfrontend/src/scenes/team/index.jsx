@@ -255,7 +255,7 @@ const Team = () => {
       }
 
       <Dialog open={openFormDialog} onClose={() => setOpenFormDialog(false)}>
-        <DialogTitle>Edit User Details</DialogTitle>
+        <DialogTitle className="dialog-heading">Edit User Details</DialogTitle>
         <DialogContent>
           <Formik
             initialValues={selectedUser || {}}

@@ -240,7 +240,7 @@ const Manageproducts = () => {
             }
 
             <Dialog open={openFormDialog} onClose={() => setOpenFormDialog(false)}>
-                <DialogTitle>Edit Product Details</DialogTitle>
+                <DialogTitle className="dialog-heading">Edit Product Details</DialogTitle>
                 <DialogContent>
                     <Formik
                         initialValues={selectedProduct || {}}

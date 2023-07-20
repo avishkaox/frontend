@@ -3,10 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid } from "@mui/x-data-grid";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import PointOfSaleOutlinedIcon from '@mui/icons-material/PointOfSaleOutlined';
-import LocalDiningOutlinedIcon from '@mui/icons-material/LocalDiningOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import { getAllItems } from "../../auth/authService.js";
@@ -22,7 +18,7 @@ const Items = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    // State to hold the allUsers data
+    // State to hold the Item data
     const [allItems, setAllItem] = useState([]);
 
     const [temp, settemp] = useState([]);
@@ -68,16 +64,15 @@ const Items = () => {
         { field: "id", headerName: "ID" },
         { field: "name", headerName: "Name", flex: 1, cellClassName: "name-cell" },
         { field: "price", headerName: "Price", flex: 1 },
-        { field: "usedby", headerName: "Usedby", flex: 1 },
+        { field: "usedby", headerName: "Item Measuring Unit ", flex: 1 },
         { field: "quantity", headerName: "Quantity", flex: 1 },
     ];
 
     const validationSchema = Yup.object({
-        name: Yup.string().required('Name is required'),
-        phone: Yup.string().required('Phone Number is required'),
-        price: Yup.string().required('Email is required'),
-        usedby: Yup.string().required('Register Id is required'),
-        quantity: Yup.number().required('Access Level is required'),
+        name: Yup.string().required('Item Name is required'),
+        price: Yup.number().required('Please provide a price'),
+        usedby: Yup.string().required('Please provide an item Measuring Unit ex:g,Kg,ml'),
+        quantity: Yup.number().required('Please provide a quantity'),
     });
 
     const [selectedItem, setSelectedItem] = React.useState(null);
@@ -94,6 +89,7 @@ const Items = () => {
     };
 
     const handleFormSubmit = async (values) => {
+        console.log("handleFormSubmit called")
         if (!selectedItem) {
             toast.error("No Item selected.");
             return;
@@ -104,7 +100,7 @@ const Items = () => {
         formData.append("price", values.price);
         formData.append("usedby", values.usedby);
         formData.append("quantity", values.quantity);
-        formData.append("user", user._id)
+        formData.append("user", user._id)    
         try {
             const response = await fetch(`${API}/api/items/${selectedItem._id}`, {
                 headers: {
@@ -204,7 +200,7 @@ const Items = () => {
             }
 
             <Dialog open={openFormDialog} onClose={() => setOpenFormDialog(false)}>
-                <DialogTitle>Update Stock Details</DialogTitle>
+                <DialogTitle className="dialog-heading">Update Stock Details</DialogTitle>
                 <DialogContent>
                     <Formik
                         initialValues={selectedItem || {}}
@@ -212,7 +208,7 @@ const Items = () => {
                         onSubmit={handleFormSubmit}
 
                     >
-                        {({ values, errors, touched, handleChange }) => (
+                        {({ errors, touched, handleChange }) => (
                             <Form>
                                 <Box my={2}>
                                     <Typography>Name</Typography>
@@ -225,12 +221,12 @@ const Items = () => {
                                     {errors.price && touched.price && <Typography>{errors.price}</Typography>}
                                 </Box>
                                 <Box my={2}>
-                                    <Typography>usedby</Typography>
+                                    <Typography>Measuring Unit</Typography>
                                     <Field type="text" name="usedby" style={formFieldStyles} />
                                     {errors.usedby && touched.usedby && <Typography>{errors.usedby}</Typography>}
                                 </Box>
                                 <Box my={2}>
-                                    <Typography>quantity</Typography>
+                                    <Typography>Quantity</Typography>
                                     <Field type="number" name="quantity" style={formFieldStyles} />
                                     {errors.quantity && touched.quantity && <Typography>{errors.quantity}</Typography>}
                                 </Box>
