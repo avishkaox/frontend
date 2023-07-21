@@ -179,24 +179,24 @@ const Sidebar = () => {
                             variant="h6"
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
-                        >Products</Typography>
+                        >Food Items</Typography>
 
                         <Item
-                            title="Products"
+                            title="Foods"
                             to="/products"
                             icon={<FoodBankOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Create New Products"
+                            title="Create New Food Item"
                             to="/createproduct"
                             icon={<RestaurantOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Manage Products"
+                            title="Manage Food Items"
                             to="/manageproduct"
                             icon={<SoupKitchenOutlinedIcon />}
                             selected={selected}

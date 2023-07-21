@@ -104,37 +104,67 @@ body,
   margin-right: 10px;
   box-shadow: 0 0 20px -7px black;
 }
-.itembox button:hover{
+
+.itembox button:hover {
   background-color: rgb(244 67 54 / 67%) !important;
 }
 
-.productcard{
+.productcard {
   background-color: #5d6966 !important;
 }
-.cardgrid{
+
+.cardgrid {
   margin-top: 30px;
 }
-.dialog-box-buttons button:nth-child(1){
+
+.dialog-box-buttons button:nth-child(1) , 
+.dialog-box-delete button:nth-child(1) {
   background: #c4ffcc;
   font-size: 14px;
   color: #333;
   font-weight: 600;
 }
-.dialog-box-buttons button:nth-child(3){
+
+.dialog-box-buttons button:nth-child(3) {
   background: #4cff4c;
   font-size: 14px;
   color: #333;
   font-weight: 600;
 }
-.dialog-box-buttons button:nth-child(2){
+
+.dialog-box-buttons button:nth-child(2),
+.dialog-box-delete button:nth-child(2) {
   background: #ff9999;
   font-size: 14px;
   color: #333;
   font-weight: 600;
 }
-.dialog-heading{
+.dialog-box-delete button:nth-child(2){
+  margin-left: 15px;
+}
+
+.dialog-heading {
   background: #b668ff !important;
   color: white !important;
   font-size: 21px !important;
   padding: 9px 24px !important;
+}
+
+.collectlocation {
+  display: inline-flex;
+  padding: 4px 15px;
+  background: #265d4f;
+  border-radius: 5px;
+  box-shadow: 0 0 22px -8px black;
+  color: white;
+  font-size: 16px;
+}
+.categories button{
+  background: #006148;
+  color: white;
+  font-size: 16px;
+}
+.categories button:focus,
+.categories button:hover{
+  background-color: #8b9391;
 }

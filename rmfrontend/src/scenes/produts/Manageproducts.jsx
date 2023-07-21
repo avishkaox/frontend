@@ -19,13 +19,11 @@ const Manageproducts = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const user = useSelector(selectUser);
-
-
     // State to hold the allUsers data
     const [allProducts, setAllProducts] = useState([]);
-
     const [temp, settemp] = useState([]);
     const [loading, setLoading] = useState(false); // Loading state
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
     // Get all user data from localStorage or fetch from backend API
     useEffect(() => {
@@ -189,9 +187,60 @@ const Manageproducts = () => {
 
     };
 
+    const handleDeleteCategory = async () => {
+        if (!selectedProduct) {
+            toast.error("No Item selected.");
+            return;
+        }
+        setOpenDeleteDialog(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        try {
+            const response = await fetch(`${API}/api/products/${selectedProduct._id}`, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                // Remove the deleted Product from the state
+                setAllProducts((prevProducts) =>
+                    prevProducts.filter((product) => product._id !== selectedProduct._id)
+                );
+                toast.success("Product deleted successfully!", {
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            } else {
+                const errorData = await response.json();
+                const errorMessage = errorData.message || "Product deletion failed";
+                toast.error(errorMessage, {
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("An error occurred. Please try again.", {
+                autoClose: 5000,
+                hideProgressBar: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        setOpenDeleteDialog(false);
+        setOpenFormDialog(false);
+    };
+
     return (
         <Box m="20px">
-            <Header title="MANAGE PRODUCTS" subtitle="Manage Your Products" />
+            <Header title="MANAGE FOOD ITEMS" subtitle="Manage Your Food Items" />
             {loading ? (
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <CircularProgress sx={{
@@ -279,6 +328,9 @@ const Manageproducts = () => {
                                 </Box>
                                 <Box display="flex" alignItems="center" justifyContent="space-between" className="dialog-box-buttons" >
                                     <Button onClick={() => setOpenFormDialog(false)}>Cancel</Button>
+                                    <Button onClick={handleDeleteCategory} color="error">
+                                        Delete
+                                    </Button>
                                     <Button type="submit">Submit</Button>
                                 </Box>
                             </Form>
@@ -288,6 +340,23 @@ const Manageproducts = () => {
                 </DialogContent>
                 <DialogActions>
 
+                </DialogActions>
+            </Dialog>
+            {/* Delete Confirmation Dialog */}
+            <Dialog open={openDeleteDialog} onClose={() => setOpenDeleteDialog(false)}>
+                <DialogTitle>Delete Confirmation</DialogTitle>
+                <DialogContent>
+                    <Typography>
+                        Are you sure you want to delete this Food?
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Box display="flex" alignItems="center" justifyContent="space-between" className="dialog-box-delete">
+                        <Button onClick={() => setOpenDeleteDialog(false)}>Cancel</Button>
+                        <Button onClick={handleConfirmDelete} color="error">
+                            Delete
+                        </Button>
+                    </Box>
                 </DialogActions>
             </Dialog>
         </Box>
