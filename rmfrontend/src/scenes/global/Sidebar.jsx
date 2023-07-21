@@ -52,6 +52,10 @@ const Sidebar = () => {
     const [selected, setSelected] = useState("Dashboard");
     const user = useSelector(selectUser);
 
+    const isManager = user.role === "manager";
+    const isChef = user.role === "chef";
+    const isCashier = user.role === "cashier";
+
     return (
         <Box
             sx={
@@ -136,154 +140,187 @@ const Sidebar = () => {
                     {/* Menue Items  */}
                     <Box paddingLeft={isCollapsed ? undefined : "10%"} >
 
-                        <Item
-                            title="Dashboard"
-                            to="/"
-                            icon={<HomeOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                        {isChef && (
+                            <>
+                                <Typography
+                                    variant="h6"
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >Data</Typography>
 
-                        <Typography
-                            variant="h6"
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
+                                <Item
+                                    title="Ongoing Orders"
+                                    to="/invoices"
+                                    icon={<ReceiptOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                            </>
+                        )}
+                        {isCashier && (
+                            <>
+                                <Typography
+                                    variant="h6"
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >Food Items</Typography>
 
-                        >Data</Typography>
+                                <Item
+                                    title="Foods"
+                                    to="/products"
+                                    icon={<FoodBankOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                            </>
+                        )}
 
-                        <Item
-                            title="Manage Team"
-                            to="/team"
-                            icon={<PeopleOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Contacts Information"
-                            to="/contacts"
-                            icon={<ContactsOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Ongoing Orders"
-                            to="/invoices"
-                            icon={<ReceiptOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                        {!isChef && !isCashier && (
+                            <>
+                                <Item
+                                    title="Dashboard"
+                                    to="/"
+                                    icon={<HomeOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
 
-                        <Typography
-                            variant="h6"
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >Food Items</Typography>
+                                <Typography
+                                    variant="h6"
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
 
-                        <Item
-                            title="Foods"
-                            to="/products"
-                            icon={<FoodBankOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Create New Food Item"
-                            to="/createproduct"
-                            icon={<RestaurantOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Manage Food Items"
-                            to="/manageproduct"
-                            icon={<SoupKitchenOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                                >Data</Typography>
 
-                        <Typography
-                            variant="h6"
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >Items</Typography>
+                                <Item
+                                    title="Manage Team"
+                                    to="/team"
+                                    icon={<PeopleOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                                <Item
+                                    title="Contacts Information"
+                                    to="/contacts"
+                                    icon={<ContactsOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                                <Item
+                                    title="Ongoing Orders"
+                                    to="/invoices"
+                                    icon={<ReceiptOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
 
-                        <Item
-                            title="Inventory"
-                            to="/items"
-                            icon={<ChecklistOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                                <Typography
+                                    variant="h6"
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >Food Items</Typography>
 
-                        <Item
-                            title="Create New Items"
-                            to="/createitem"
-                            icon={<EditNoteOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                                <Item
+                                    title="Foods"
+                                    to="/products"
+                                    icon={<FoodBankOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                                <Item
+                                    title="Create New Food Item"
+                                    to="/createproduct"
+                                    icon={<RestaurantOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                                <Item
+                                    title="Manage Food Items"
+                                    to="/manageproduct"
+                                    icon={<SoupKitchenOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
 
-                        <Typography
-                            variant="h6"
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >Categories</Typography>
+                                <Typography
+                                    variant="h6"
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >Items</Typography>
 
-                        <Item
-                            title="Categories"
-                            to="/categories"
-                            icon={<CategoryOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                                <Item
+                                    title="Inventory"
+                                    to="/items"
+                                    icon={<ChecklistOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
 
-                        <Item
-                            title="Create New Category"
-                            to="/createcategory"
-                            icon={<ModeEditOutlineOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                                <Item
+                                    title="Create New Items"
+                                    to="/createitem"
+                                    icon={<EditNoteOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
 
-                        <Typography
-                            variant="h6"
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >Pages</Typography>
+                                <Typography
+                                    variant="h6"
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >Categories</Typography>
 
-                        <Item
-                            title="Create New User"
-                            to="/form"
-                            icon={<PersonOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        {/* <Item
-                            title="Calendar"
-                            to="/calendar"
-                            icon={<CalendarTodayOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        /> */}
-                        <Typography
-                            variant="h6"
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >Charts</Typography>
-                        <Item
-                            title="Bar Chart"
-                            to="/bar"
-                            icon={<BarChartOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Pie Chart"
-                            to="/pie"
-                            icon={<PieChartOutlineOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                                <Item
+                                    title="Categories"
+                                    to="/categories"
+                                    icon={<CategoryOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+
+                                <Item
+                                    title="Create New Category"
+                                    to="/createcategory"
+                                    icon={<ModeEditOutlineOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+
+                                <Typography
+                                    variant="h6"
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >Pages</Typography>
+
+                                <Item
+                                    title="Create New User"
+                                    to="/form"
+                                    icon={<PersonOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                                <Typography
+                                    variant="h6"
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >Charts</Typography>
+                                <Item
+                                    title="Bar Chart"
+                                    to="/bar"
+                                    icon={<BarChartOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                                <Item
+                                    title="Pie Chart"
+                                    to="/pie"
+                                    icon={<PieChartOutlineOutlinedIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                            </>
+                        )}
+
 
                     </Box>
 
