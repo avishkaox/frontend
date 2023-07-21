@@ -26,7 +26,7 @@ const Createcategory = () => {
         formData.append("name", values.name);
 
         try {
-            const response = await fetch(`${API}/api/categories`, {
+            const response = await fetch(`${API}/api/categories/create`, {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json"
