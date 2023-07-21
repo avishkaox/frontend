@@ -1,12 +1,11 @@
 import Header from "../../components/Header"
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
 import PieChart from "../../components/PieChart";
 import BarChart from "../../components/BarChart";
 import LineChart from "../../components/LineChart";
@@ -53,11 +52,14 @@ const Dashboard = () => {
             quantity: item.quantity,
             purchasedDate: item.purchasedDate,
             name: item.productId.name,
-            price:item.productId.price * item.quantity,
-            totalprice: totalPrice,
+            price: item.productId.price * item.quantity,
+            totalprice: totalPrice * item.quantity,
+            profit: item.productId.price * item.quantity - totalPrice * item.quantity,
         };
     });
-
+    const totalProfit = dataWithPrice.reduce((acc, item) => acc + item.profit, 0);
+    const totalIncome = dataWithPrice.reduce((acc, item) => acc + item.totalprice, 0);
+    const totalQuantity = dataWithPrice.reduce((acc, item) => acc + item.quantity, 0);
 
 
 
@@ -86,12 +88,12 @@ const Dashboard = () => {
                     alignItems="center"
                 >
                     <StatBox
-                        title="12,361"
-                        subtitle="Emails Sent"
+                        title={totalQuantity}
+                        subtitle="Sold Food Quantity"
                         progress="0.75"
-                        increase="+14%"
+                        increase=""
                         icon={
-                            <EmailIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />
+                            <FastfoodIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />
                         }
                     />
                 </Box>
@@ -104,31 +106,15 @@ const Dashboard = () => {
                     alignItems="center"
                 >
                     <StatBox
-                        title="431,225"
-                        subtitle="Sales Obtained"
+                        title={totalIncome}
+                        subtitle="Total Income"
                         progress="0.5"
-                        increase="+21%"
+                        increase=""
                         icon={
                             <PointOfSaleIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />
                         }
                     />
                 </Box>
-                <Box gridColumn="span 3"
-                    backgroundColor={colors.primary[400]}
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <StatBox
-                        title="32,441"
-                        subtitle="New Clients"
-                        progress="0.30"
-                        increase="+5%"
-                        icon={
-                            <PersonAddIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />
-                        }
-                    />
-                </Box>
 
                 <Box gridColumn="span 3"
                     backgroundColor={colors.primary[400]}
@@ -137,18 +123,18 @@ const Dashboard = () => {
                     alignItems="center"
                 >
                     <StatBox
-                        title="1,325,134"
-                        subtitle="Traffic Inbount"
-                        progress="0.80"
-                        increase="+45%"
+                        title={totalProfit}
+                        subtitle="Total Profit"
+                        progress="0"
+                        increase=""
                         icon={
-                            <TrafficIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />
+                            <MonetizationOnIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />
                         }
                     />
                 </Box>
 
                 {/* Row 2  */}
-                <Box
+                {/* <Box
                     gridColumn="span 8"
                     gridRow="span 2"
                     backgroundColor={colors.primary[400]}
@@ -182,10 +168,10 @@ const Dashboard = () => {
                     <Box height="250px" ml="-20px" >
                         <LineChart isDashboard={true} />
                     </Box>
-                </Box>
+                </Box> */}
 
                 {/* Transactions  */}
-                <Box gridColumn="span 4" gridRow="span 2" backgroundColor={colors.primary[400]} overflow="auto" >
+                <Box gridColumn="span 8" gridRow="span 2" backgroundColor={colors.primary[400]} overflow="auto" >
                     <Box display="flex" justifyContent="space-between" alignItems="center"
                         borderBottom={`4px slid ${colors.primary[500]}`}
                         color={colors.grey[100]}
@@ -236,14 +222,14 @@ const Dashboard = () => {
 
                 <Box
                     gridColumn='span 4'
-                    gridRow="span 2"
+                    gridRow="span 4"
                     backgroundColor={colors.primary[400]}
                     p="30px"
                 >
                     <Typography variant="h5" fontWeight="600" >
                         Food Items by Category
                     </Typography>
-                    <Box height="250px"  >
+                    <Box height="611px"  >
                         <PieChart />
                     </Box>
                 </Box>
@@ -256,7 +242,7 @@ const Dashboard = () => {
                     p="30px"
                 >
                     <Typography variant="h5" fontWeight="600" >
-                        Stock Balance 
+                        Stock Balance
                     </Typography>
                     <Box height="250px"  >
                         <BarChart isDashboard={true} />

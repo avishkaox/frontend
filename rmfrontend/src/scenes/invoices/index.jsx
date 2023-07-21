@@ -43,18 +43,24 @@ const Invoices = () => {
             quantity: item.quantity,
             purchasedDate: item.purchasedDate,
             name: item.productId.name,
-            price:item.productId.price * item.quantity,
-            totalprice: totalPrice,
+            price: item.productId.price * item.quantity,
+            totalprice: totalPrice * item.quantity,
+            profit: item.productId.price * item.quantity - totalPrice * item.quantity,
         };
     });
 
+    const totalProfit = dataWithPrice.reduce((acc, item) => acc + item.profit, 0);
+    const totalIncome = dataWithPrice.reduce((acc, item) => acc + item.totalprice, 0);
+
     const columns = [
         { field: "id", headerName: "ID" },
-        { field: "quantity", headerName: "Quantity", flex: 1, cellClassName: "name-cell" },
-        { field: "purchasedDate", headerName: "Purchased Date", flex: 1, cellClassName: "name-cell" },
         { field: "name", headerName: "Name", flex: 1, cellClassName: "name-cell" },
+        { field: "quantity", headerName: "Quantity", flex: 1, cellClassName: "name-cell" },
         { field: "price", headerName: "Price", flex: 1, cellClassName: "name-cell" },
-        { field: "totalprice", headerName: "total Price", flex: 1, cellClassName: "name-cell" },
+        { field: "totalprice", headerName: "Cost", flex: 1, cellClassName: "name-cell" },
+        { field: "profit", headerName: "Profit", flex: 1, cellClassName: "name-cell" },
+        { field: "purchasedDate", headerName: "Purchased Date", flex: 1, cellClassName: "name-cell" },
+
     ];
 
     return (
@@ -74,10 +80,11 @@ const Invoices = () => {
                     sx={{
                         "& .MuiDataGrid-root": {
                             border: "none",
-                        },
-                        // Rest of the styles...
+                        }
                     }}
                 >
+                    <Typography variant="h6">Total Profit: ${totalProfit}</Typography>
+                    <Typography variant="h6">Total Income: ${totalIncome}</Typography>
                     <DataGrid
                         rows={dataWithPrice}
                         columns={columns}
