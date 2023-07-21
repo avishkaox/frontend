@@ -65,6 +65,10 @@ const authSlice = createSlice({
             state.itemsforBarChart = action.payload;
             localStorage.setItem("itemsforBarChart", JSON.stringify(action.payload));
         },
+        SET_ALL_PURCHASEDPRODUCTS(state, action) {
+            state.allPurchasedProducts = action.payload;
+            localStorage.setItem("allPurchasedProducts", JSON.stringify(action.payload));
+        },
     },
 });
 
@@ -72,7 +76,7 @@ const authSlice = createSlice({
 
 
 
-export const { SET_LOGIN, SET_NAME, SET_USER , SET_ALL_USERS , SET_ALL_PRODUCTS , SET_ALL_ITEMS , SET_ALL_CATEGORIES , CLEAR_ALL_USERS , SET_ALL_PRRDUCTSFORPIECHART, SET_ALL_ITEMSFORBARCHART } = authSlice.actions;
+export const { SET_LOGIN, SET_NAME, SET_USER, SET_ALL_USERS, SET_ALL_PRODUCTS, SET_ALL_ITEMS, SET_ALL_CATEGORIES, CLEAR_ALL_USERS, SET_ALL_PRRDUCTSFORPIECHART, SET_ALL_ITEMSFORBARCHART, SET_ALL_PURCHASEDPRODUCTS } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;
@@ -83,5 +87,6 @@ export const selectAllItems = (state) => state.auth.allItems;
 export const selectAllCategories = (state) => state.auth.allCategories;
 export const selectAllCProductsForPieChart = (state) => state.auth.productsforPieChart;
 export const selectAllCItemsForBarChart = (state) => state.auth.itemsforBarChart;
+export const selectPurchasedProducts = (state) => state.auth.PurchasedProducts;
 
 export default authSlice.reducer;

@@ -170,3 +170,25 @@ export const purchaseProduct = async (productId, data) => {
         throw error;
     }
 };
+
+
+
+// Get All Purchased Products
+
+export const getAllPurchasedProducts = async () => {
+    try {
+        const response = await axios.get(`${API}/api/products/allpurchasedproducts`);
+        const allPurchasedProducts = response.data.map((purchasedproduct, index) => ({
+            id: index + 1, // Assign a unique id to each purchasedproduct object
+            ...purchasedproduct, // Spread the user purchasedproduct properties
+        }));
+        return allPurchasedProducts;
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        toast.error(message);
+        throw error;
+    }
+};

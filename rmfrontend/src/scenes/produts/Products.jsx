@@ -4,6 +4,7 @@ import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOu
 import React, { useEffect, useState } from 'react';
 import { tokens } from "../../theme";
 import { useMode } from "../../theme";
+import { toast } from "react-toastify";
 import { getAllProducts, getAllCategories, purchaseProduct } from "../../auth/authService.js";
 
 const Products = () => {
@@ -140,7 +141,14 @@ const Products = () => {
                 // Pass the product ID and the quantity to the API
                 await purchaseProduct(product._id, { quantity });
                 console.log(`Order for product "${product.name}" with quantity ${quantity} confirmed.`);
-                // Handle success or show a success message to the user
+
+                toast.success(`Order for product "${product.name}" with quantity ${quantity} confirmed.`, {
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             } catch (error) {
                 console.error(`Error confirming order for product "${product.name}":`, error);
                 // Handle error or show an error message to the user
@@ -155,9 +163,10 @@ const Products = () => {
         return (
             <Box>
                 {selectedProducts.map((item) => (
-                    <Box key={item.product.id}>
-                        <Typography variant="h6">{item.product.name}</Typography>
+                    <Box display="flex" flexDirection="row" alignItems="center" paddingLeft="15px" key={item.product.id}>
+                        <Typography variant="h4">{item.product.name}</Typography>
                         <TextField
+                            className="quantity-inputfield"
                             type="number"
                             value={item.quantity}
                             onChange={(e) => handleChangeQuantity(item.product, parseInt(e.target.value))}

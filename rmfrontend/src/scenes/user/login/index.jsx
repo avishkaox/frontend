@@ -5,7 +5,7 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { API } from "../../../config.js";
 import { useDispatch } from "react-redux";
-import { SET_LOGIN, SET_NAME , SET_USER , SET_ALL_USERS , SET_ALL_PRODUCTS , SET_ALL_ITEMS , SET_ALL_CATEGORIES , SET_ALL_PRRDUCTSFORPIECHART } from "../../../auth/authSlice.js";
+import { SET_LOGIN, SET_NAME , SET_USER , SET_ALL_USERS , SET_ALL_PRODUCTS , SET_ALL_ITEMS , SET_ALL_CATEGORIES , SET_ALL_PRRDUCTSFORPIECHART , SET_ALL_PURCHASEDPRODUCTS } from "../../../auth/authSlice.js";
 import { getLoginStatus } from "../../../auth/authService.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -48,6 +48,7 @@ const Login = () => {
                 dispatch(SET_ALL_ITEMS(data));
                 dispatch(SET_ALL_CATEGORIES(data));
                 dispatch(SET_ALL_PRRDUCTSFORPIECHART(data));
+                dispatch(SET_ALL_PURCHASEDPRODUCTS(data));
                 getLoginStatus();
                 console.log(data);
                 navigate("/");

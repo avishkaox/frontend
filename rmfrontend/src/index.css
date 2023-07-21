@@ -249,7 +249,7 @@ body,
   font-size: 15px;
   font-weight: 500;
   padding: 10px 16px;
-  margin-top: 17px;
+  /* margin-top: 17px; */
   box-shadow: 0 0 29px -13px black;
   border-radius: 11px;
   margin-right: 21px;
@@ -259,4 +259,7 @@ body,
 .order button:hover {
   box-shadow: none;
   transition: 500ms;
+}
+.quantity-inputfield input{
+  color: black;
 }
