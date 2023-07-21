@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 html,
 body,
@@ -117,7 +118,7 @@ body,
   margin-top: 30px;
 }
 
-.dialog-box-buttons button:nth-child(1) , 
+.dialog-box-buttons button:nth-child(1),
 .dialog-box-delete button:nth-child(1) {
   background: #c4ffcc;
   font-size: 14px;
@@ -139,7 +140,8 @@ body,
   color: #333;
   font-weight: 600;
 }
-.dialog-box-delete button:nth-child(2){
+
+.dialog-box-delete button:nth-child(2) {
   margin-left: 15px;
 }
 
@@ -159,28 +161,102 @@ body,
   color: white;
   font-size: 16px;
 }
-.categories button{
+
+.categories button {
   background: #006148;
   color: white;
   font-size: 16px;
 }
+
 .categories button:focus,
-.categories button:hover{
+.categories button:hover {
   background-color: #8b9391;
 }
-.topbar-icons{
+
+.topbar-icons {
   padding-bottom: 0px;
   position: absolute;
   left: 93%;
   z-index: 10000;
 }
-.foodsearch{
+
+.foodsearch {
   margin-top: 17px;
   background: #07513e;
   width: 365px;
   color: white;
   margin-top: 17px !important;
 }
-.foodsearch label{
+
+.foodsearch label {
   color: white;
+}
+
+.nivo-axis.nivo-axisLeft text {
+  fill: red !important;
+  /* Change the fill color to your desired color */
+}
+
+.orderbox {
+  position: absolute;
+  top: 19%;
+  right: 11px;
+}
+
+.orderboxtoggle button {
+  background: #777777;
+  color: white;
+  font-size: 15px;
+  z-index: 1000;
+}
+
+.order {
+  position: relative;
+  background: white;
+  width: 600px;
+  height: auto;
+  color: black;
+  padding-bottom: 18px;
+  border-radius: 13px;
+  box-shadow: 0 0 27px -4px black;
+}
+
+.order h5 {
+  font-size: 39px;
+  font-weight: 500;
+  text-align: center;
+  padding-top: 13px;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.order h6 {
+  text-align: end;
+  padding: 16px;
+  padding-right: 28px;
+  background: #f4fff7;
+  font-size: 19px;
+  font-family: 'Poppins', sans-serif !important;
+  margin-top: 23px;
+  box-shadow: 0 0 29px -16px black;
+}
+
+.order button {
+  display: block;
+  margin-left: auto;
+  background: #91ffa5;
+  color: black;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 16px;
+  margin-top: 17px;
+  box-shadow: 0 0 29px -13px black;
+  border-radius: 11px;
+  margin-right: 21px;
+  transition: 500ms;
+}
+
+.order button:hover {
+  box-shadow: none;
+  transition: 500ms;
 }

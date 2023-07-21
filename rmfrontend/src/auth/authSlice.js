@@ -82,5 +82,6 @@ export const selectAllProducts = (state) => state.auth.allProducts;
 export const selectAllItems = (state) => state.auth.allItems;
 export const selectAllCategories = (state) => state.auth.allCategories;
 export const selectAllCProductsForPieChart = (state) => state.auth.productsforPieChart;
+export const selectAllCItemsForBarChart = (state) => state.auth.itemsforBarChart;
 
 export default authSlice.reducer;

@@ -154,3 +154,19 @@ export const getAllItemsforBarChart = async () => {
         throw error;
     }
 };
+
+
+// Purchase Product
+export const purchaseProduct = async (productId, data) => {
+    try {
+        const response = await axios.post(`${API}/api/products/${productId}/purchase`, data);
+        return response;
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        toast.error(message);
+        throw error;
+    }
+};
