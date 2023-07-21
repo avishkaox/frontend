@@ -86,8 +86,8 @@ export const getAllItems = async () => {
     try {
         const response = await axios.get(`${API}/api/items`);
         const allItems = response.data.map((item, index) => ({
-            id: index + 1, // Assign a unique id to each product object
-            ...item, // Spread the user product properties
+            id: index + 1, // Assign a unique id to each Item object
+            ...item, // Spread the user Item properties
         }));
         return allItems;
     } catch (error) {
@@ -109,8 +109,8 @@ export const getAllCategories = async () => {
     try {
         const response = await axios.get(`${API}/api/categories`);
         const allCategories = response.data.map((category, index) => ({
-            id: index + 1, // Assign a unique id to each product object
-            ...category, // Spread the user product properties
+            id: index + 1, // Assign a unique id to each category object
+            ...category, // Spread the user category properties
         }));
         return allCategories;
     } catch (error) {
