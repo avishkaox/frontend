@@ -11,6 +11,8 @@ import PieChart from "../../components/PieChart";
 import BarChart from "../../components/BarChart";
 import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
+import React, { useEffect, useState } from 'react';
+import { getAllPurchasedProducts, getAllItems } from "../../auth/authService.js";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../auth/authSlice.js";
 
@@ -19,6 +21,45 @@ const Dashboard = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const user = useSelector(selectUser);
+
+
+    const [allpurchasedproducts, setAllPurchasedProducts] = useState([]);
+    const [allItems, setAllItem] = useState([]);
+
+    useEffect(() => {
+        Promise.all([getAllPurchasedProducts(), getAllItems()])
+            .then(([purchasedproducts, items]) => {
+                setAllPurchasedProducts(purchasedproducts);
+                setAllItem(items);
+            })
+            .catch((error) => {
+                // Handle the error
+            })
+    }, []);
+
+
+    // Calculate the total price for each purchased product item
+    const dataWithPrice = allpurchasedproducts.map((item) => {
+        // Calculate the total price by summing the price of all items in the items array
+        const totalPrice = item.productId.items.reduce((acc, curItem) => {
+            // Find the item from allItems that matches the current item's itemId
+            const matchedItem = allItems.find((allItem) => allItem._id === curItem.itemId._id);
+            // Add the price of the matched item multiplied by the current item's quantity to the accumulator
+            return acc + matchedItem.price * curItem.quantity;
+        }, 0);
+
+        return {
+            id: item.id,
+            quantity: item.quantity,
+            purchasedDate: item.purchasedDate,
+            name: item.productId.name,
+            price:item.productId.price * item.quantity,
+            totalprice: totalPrice,
+        };
+    });
+
+
+
 
     return (
         <Box p={2}>
@@ -157,9 +198,9 @@ const Dashboard = () => {
                             Recent Transactions
                         </Typography>
                     </Box>
-                    {mockTransactions.map((transaction, i) => (
+                    {dataWithPrice.map((data, i) => (
                         <Box
-                            key={`${transaction.txId}-${i}`}
+                            key={`${data.id}-${i}`}
                             display="flex"
                             justifyContent="space-between"
                             alignItems="center"
@@ -172,20 +213,20 @@ const Dashboard = () => {
                                     variant="h5"
                                     fontWeight="600"
                                 >
-                                    {transaction.txId}
+                                    {data.name}
                                 </Typography>
                                 <Typography color={colors.grey[100]}
                                 >
-                                    {transaction.user}
+                                    {data.quantity}
                                 </Typography>
                             </Box>
-                            <Box color={colors.grey[100]} >{transaction.date}</Box>
+                            <Box color={colors.grey[100]} >{data.purchasedDate}</Box>
                             <Box
                                 backgroundColor={colors.greenAccent[500]}
                                 p="5px 10px"
                                 borderRadius="4px"
                             >
-                                {transaction.cost}
+                                {data.price}
                             </Box>
                         </Box>
                     ))}
