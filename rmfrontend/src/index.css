@@ -168,3 +168,19 @@ body,
 .categories button:hover{
   background-color: #8b9391;
 }
+.topbar-icons{
+  padding-bottom: 0px;
+  position: absolute;
+  left: 93%;
+  z-index: 10000;
+}
+.foodsearch{
+  margin-top: 17px;
+  background: #07513e;
+  width: 365px;
+  color: white;
+  margin-top: 17px !important;
+}
+.foodsearch label{
+  color: white;
+}

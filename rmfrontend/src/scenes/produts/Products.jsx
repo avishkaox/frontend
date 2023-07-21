@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import { Box, Card, CardContent, CardMedia, Grid, Typography, Pagination, Button, CircularProgress } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Grid, Typography, Pagination, Button, CircularProgress, TextField } from "@mui/material";
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
 import React, { useEffect, useState } from 'react';
 import { tokens } from "../../theme";
@@ -15,6 +15,7 @@ const Products = () => {
     const [allProducts, setAllProducts] = useState([]);
     const [loading, setLoading] = useState(false); // Loading state
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [searchKeyword, setSearchKeyword] = useState(""); // New state for search keyword
 
     // Get all product data from localStorage or fetch from backend API
     useEffect(() => {
@@ -62,12 +63,15 @@ const Products = () => {
 
     const handleShowAll = () => {
         setSelectedCategory(null);
+        setSearchKeyword("");
     };
 
-    // Filter products based on the selected category
-    const filteredProducts = selectedCategory
-        ? allProducts.filter((product) => product.category.name === selectedCategory.name)
-        : allProducts;
+    // Filter products based on the selected category and search keyword
+    const filteredProducts = allProducts.filter((product) => {
+        const categoryMatch = !selectedCategory || product.category.name === selectedCategory.name;
+        const keywordMatch = product.name.toLowerCase().includes(searchKeyword.toLowerCase());
+        return categoryMatch && keywordMatch;
+    });
 
     const totalCards = filteredProducts.length;
     const totalPages = Math.ceil(totalCards / cardsPerPage);
@@ -77,6 +81,12 @@ const Products = () => {
     return (
         <Box m="20px">
             <Header title="FOOD ITEMS" subtitle="View all Food Items" />
+            <TextField className="foodsearch"
+                label="Search products"
+                variant="outlined"
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+            />
             <Box className="categories" display="block" my={2}>
                 <Button
                     onClick={handleShowAll}

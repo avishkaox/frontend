@@ -122,3 +122,35 @@ export const getAllCategories = async () => {
         throw error;
     }
 };
+
+
+export const getAllProductsforPieChart = async () => {
+    try {
+        const response = await axios.get(`${API}/api/products/productsforpiechart`);
+        const productsforpiechart = response.data
+        return productsforpiechart;
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        toast.error(message);
+        throw error;
+    }
+};
+
+
+export const getAllItemsforBarChart = async () => {
+    try {
+        const response = await axios.get(`${API}/api/items/getitemsforbarchart`);
+        const itemsforbarchart = response.data
+        return itemsforbarchart;
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        toast.error(message);
+        throw error;
+    }
+};

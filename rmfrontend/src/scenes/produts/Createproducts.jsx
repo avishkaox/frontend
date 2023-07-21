@@ -135,7 +135,7 @@ const Createproduct = () => {
     };
     return (
         <Box m="20px" >
-            <Header className="Header" title="CREATE PRODUCTS" subtitle="Create New Products" />
+            <Header className="Header" title="CREATE FOOD ITEMS" subtitle="Create New Food Items" />
             <Box mt="20px" >
                 <Formik
                     initialValues={initialValues}
