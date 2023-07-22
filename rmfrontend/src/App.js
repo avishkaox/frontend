@@ -22,10 +22,15 @@ import Items from "./scenes/items/Items";
 import Createitems from "./scenes/items/Createitems";
 import Categories from "./scenes/categories/Categories";
 import Createcategory from "./scenes/categories/Createcategory";
+import { selectUser } from "./auth/authSlice.js";
 
 function App() {
   const [theme, colorMode] = useMode();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
+
+  
+  
 
   return (
     <ColorModeContext.Provider value={colorMode}>
